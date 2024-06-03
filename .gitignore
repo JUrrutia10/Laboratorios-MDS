@@ -3,12 +3,12 @@ Labsenv/
 aerolineas_lucer.parquet
 
 /Clases
-16_Forecast.ipynb
+
 temperatures.csv
 
 catboost_info/
 logs.log
 stats_players.csv
 Player_Stats_Report.html
-
+sales.csv
 fruit_vegetables.csv
