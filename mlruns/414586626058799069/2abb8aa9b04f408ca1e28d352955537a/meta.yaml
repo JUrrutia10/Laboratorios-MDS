@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/414586626058799069/2abb8aa9b04f408ca1e28d352955537a/artifacts
+end_time: 1721288499474
+entry_point_name: ''
+experiment_id: '414586626058799069'
+lifecycle_stage: active
+run_id: 2abb8aa9b04f408ca1e28d352955537a
+run_name: optimize_hyperparameters
+run_uuid: 2abb8aa9b04f408ca1e28d352955537a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721288373537
+status: 3
+tags: []
+user_id: jeus8

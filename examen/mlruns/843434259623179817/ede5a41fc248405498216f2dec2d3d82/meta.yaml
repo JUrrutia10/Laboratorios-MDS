@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/843434259623179817/ede5a41fc248405498216f2dec2d3d82/artifacts
+end_time: 1721286679210
+entry_point_name: ''
+experiment_id: '843434259623179817'
+lifecycle_stage: active
+run_id: ede5a41fc248405498216f2dec2d3d82
+run_name: likeable-panda-685
+run_uuid: ede5a41fc248405498216f2dec2d3d82
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721286017730
+status: 4
+tags: []
+user_id: jeus8
