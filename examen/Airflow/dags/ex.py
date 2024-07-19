@@ -3,7 +3,6 @@
 import numpy as np
 import pandas as pd
 import datetime
-from IPython.display import HTML
 
 
 
@@ -333,7 +332,7 @@ mlflow.set_experiment("MLflow Quickstart2")
 #%%
 # Ejemplo de uso
 #XGB_pipe_final,lastrun = retrain_model(X_t0, y_t0.loc[:, 'is_mob'], X_t1, y_t1.loc[:, 'is_mob'], preprocessor, model_path='xgb_pipeline_initial.joblib')
-last_run,last_model=retraindate(current_time,data1)
+#last_run,last_model=retraindate(current_time,data1)
 #%%
 def predapi(data):
     # Iniciar una nueva ejecución de MLflow

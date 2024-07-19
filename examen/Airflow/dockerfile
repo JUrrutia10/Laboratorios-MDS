@@ -11,7 +11,11 @@ RUN pip install apache-airflow
 RUN pip install scikit-learn
 RUN pip install pandas
 RUN pip install numpy
-
+RUN pip install joblib 
+RUN pip install mlflow
+RUN pip install xgboost
+RUN pip install optuna
+RUN pip install gradio
 # Inicializa la base de datos de Airflow
 RUN airflow db init
 
@@ -26,6 +30,7 @@ RUN airflow users create --role Admin --username admin --email admin \
 COPY ./dags $AIRFLOW_HOME/dags
 COPY ./logs $AIRFLOW_HOME/logs
 COPY ./plugins $AIRFLOW_HOME/plugins
+COPY ./func $AIRFLOW_HOME/func
 
 # Comando para iniciar el servidor web y el scheduler
 CMD ["sh", "-c", "airflow webserver -p 8082 & airflow scheduler"]
