@@ -1,0 +1,11 @@
+[2024-07-20T03:17:15.244+0000] {processor.py:161} INFO - Started process (PID=73) to work on /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_sensors.py
+[2024-07-20T03:17:15.245+0000] {processor.py:830} INFO - Processing file /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_sensors.py for tasks to queue
+[2024-07-20T03:17:15.247+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:17:15.246+0000] {dagbag.py:545} INFO - Filling up the DagBag from /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_sensors.py
+[2024-07-20T03:17:15.261+0000] {processor.py:840} INFO - DAG(s) 'example_sensors' retrieved from /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_sensors.py
+[2024-07-20T03:17:15.571+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:17:15.570+0000] {override.py:1858} INFO - Created Permission View: can edit on DAG:example_sensors
+[2024-07-20T03:17:15.624+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:17:15.623+0000] {override.py:1858} INFO - Created Permission View: can read on DAG:example_sensors
+[2024-07-20T03:17:15.655+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:17:15.654+0000] {override.py:1858} INFO - Created Permission View: can delete on DAG:example_sensors
+[2024-07-20T03:17:15.656+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:17:15.655+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2024-07-20T03:17:15.666+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:17:15.665+0000] {dag.py:3111} INFO - Creating ORM DAG for example_sensors
+[2024-07-20T03:17:15.667+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:17:15.667+0000] {dag.py:3947} INFO - Setting next_dagrun for example_sensors to None, run_after=None
+[2024-07-20T03:17:15.730+0000] {processor.py:183} INFO - Processing /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_sensors.py took 0.491 seconds

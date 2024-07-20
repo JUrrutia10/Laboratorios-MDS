@@ -31,7 +31,6 @@ import re
 import pickle
 from scipy.stats import ks_2samp
 import gradio as gr
-import shap
 
 #%%
 current_time = datetime.now().strftime("%Y-%m-%d")
@@ -252,7 +251,7 @@ def optimize_hyperparameters_with_mlflow(X, y, preprocessor):
     # Ejecutar la optimización con Optuna y MLFlow
     study = optuna.create_study(direction='maximize')
     with mlflow.start_run(run_name="optimize_hyperparameters", nested=True):
-        study.optimize(objective2, n_trials=10)
+        study.optimize(objective2, n_trials=1)
 
     # Obtener el AUC PR y los mejores hiperparámetros encontrados
     best_auc = study.best_value
@@ -278,7 +277,7 @@ def runMF():
     mlflow.set_tracking_uri(uri="http://mlflow:5000")
 
     # Create a new MLflow Experiment
-    mlflow.set_experiment("MLflow Examen")
+    mlflow.set_experiment("MLflow Quickstart2")
 
 #%%
 
@@ -296,20 +295,18 @@ def check_data_drift(X_train, X_new, threshold=0.05):
     return any(p_value < threshold for p_value in drift_metrics.values())
 #%%
 
-def retrain_model(preprocessor=preprocessor2, model_path='xgb_pipeline.joblib'):
-    X_old = pd.read_csv("X_old.csv", index_col=0)
-    y_old = pd.read_csv("y_old.csv", index_col=0)
-    X_new = pd.read_csv("X_new.csv", index_col=0)
-    y_new = pd.read_csv("y_new.csv", index_col=0)
+def retrain_model( preprocessor=preprocessor2, model_path='xgb_pipeline.joblib'):
+    
+    X_old=pd.read_csv("X_old.csv",index_col=0)
+    y_old=pd.read_csv("y_old.csv",index_col=0)
+    X_new=pd.read_csv("X_new.csv",index_col=0)
+    y_new=pd.read_csv("y_new.csv",index_col=0) 
     run_name = f"incremental_training_{current_time}"
-
-    # Configurar URI de seguimiento de MLflow
-    mlflow.set_tracking_uri("http://mlflow:5000")
-    mlflow.set_experiment("MLflow Examen")
 
     # Finalizar cualquier ejecución activa de MLFlow
     if mlflow.active_run():
         mlflow.end_run()
+
 
     # Combinar los datos antiguos y nuevos
     X_combined = pd.concat([X_old, X_new], axis=0)
@@ -318,19 +315,14 @@ def retrain_model(preprocessor=preprocessor2, model_path='xgb_pipeline.joblib'):
     # Comprobar el drift de los datos
     datadrift = check_data_drift(X_old, X_new, threshold=0.05)
     
-    def log_interpretability(X, model, run_name):
-        explainer = shap.Explainer(model)
-        shap_values = explainer(X)
-        shap_summary_plot = shap.summary_plot(shap_values, X, show=False)
-        shap.bar_plot = shap.bar_plot(shap_values, show=False)
-        mlflow.log_figure(shap_summary_plot, f"shap_summary_plot_{run_name}.png")
-        mlflow.log_figure(shap.bar_plot, f"shap_bar_plot_{run_name}.png")
+
     
+
     if not os.path.exists(model_path):
         with mlflow.start_run(run_name=run_name):
             try:
                 # Initial training
-                params, auclog = optimize_hyperparameters_with_mlflow(X_old, y_old, preprocessor)
+                params,auclog = optimize_hyperparameters_with_mlflow(X_old, y_old, preprocessor)
                 
                 mlflow.log_params(params)
                 mlflow.log_metric("aucpr", auclog)
@@ -340,11 +332,8 @@ def retrain_model(preprocessor=preprocessor2, model_path='xgb_pipeline.joblib'):
                 ])
                 XGB_pipe.fit(X_combined, y_combined)
                 joblib.dump(XGB_pipe, model_path)
-                mlflow.sklearn.log_model(XGB_pipe, "model_initial")
-                
-                # Log interpretability
-                X_combined_preprocessed = XGB_pipe.named_steps['preprocessor'].transform(X_combined)
-                log_interpretability(X_combined_preprocessed, XGB_pipe.named_steps['classifier'], run_name)
+                mlflow.autolog()
+
             finally:
                 mlflow.end_run()
     else:
@@ -357,18 +346,16 @@ def retrain_model(preprocessor=preprocessor2, model_path='xgb_pipeline.joblib'):
                     
                     # Reentrenar el modelo con los datos combinados
                     X_combined_preprocessed = XGB_pipe.named_steps['preprocessor'].transform(X_combined)
-                    dtrain_combined = DMatrix(X_combined_preprocessed, label=y_combined)
-                    params, auclog = optimize_hyperparameters_with_mlflow(X_combined, y_combined, preprocessor)
+                    dtrain_combined = xgb.DMatrix(X_combined_preprocessed, label=y_combined)
+                    params,auclog = optimize_hyperparameters_with_mlflow(X_combined, y_combined, preprocessor)
                     mlflow.log_params(params)
                     mlflow.log_metric("aucpr", auclog)
                     
-                    classifier = xgb_train(params, dtrain_combined, num_boost_round=50, xgb_model=classifier.get_booster())
+                    classifier = xgb.train(params, dtrain_combined, num_boost_round=50, xgb_model=classifier.get_booster())
                     XGB_pipe.named_steps['classifier'] = classifier
                     joblib.dump(XGB_pipe, model_path)
+                    mlflow.autolog()
                     mlflow.sklearn.log_model(XGB_pipe, "model_updated")
-                    
-                    # Log interpretability
-                    log_interpretability(X_combined_preprocessed, classifier, run_name)
                 finally:
                     mlflow.end_run()
         else:
@@ -376,43 +363,13 @@ def retrain_model(preprocessor=preprocessor2, model_path='xgb_pipeline.joblib'):
                 try:
                     # Cargar el pipeline completo
                     XGB_pipe = joblib.load(model_path)
-                    X_combined_preprocessed = XGB_pipe.named_steps['preprocessor'].transform(X_combined)
-                    
-                    # Log interpretability
-                    log_interpretability(X_combined_preprocessed, XGB_pipe.named_steps['classifier'], run_name)
                 finally:
                     mlflow.end_run()
                 
+
     return model_path
 #%%
 
-def log_shap_interpretability(model_path='xgb_pipeline.joblib', sample_size=100):
-    # Cargar los datos combinados y el modelo
-    X_combined = pd.concat([pd.read_csv("X_old.csv", index_col=0), pd.read_csv("X_new.csv", index_col=0)], axis=0)
-    XGB_pipe = joblib.load(model_path)
-    run_name = f"shap_interpretability_{datetime.now().strftime('%Y%m%d')}"
-
-    # Configurar URI de seguimiento de MLflow
-    mlflow.set_tracking_uri("http://mlflow:5000")
-    mlflow.set_experiment("MLflow Examen")
-
-    # Tomar una muestra de los datos
-    X_sample = X_combined.sample(sample_size)
-    X_sample_preprocessed = XGB_pipe.named_steps['preprocessor'].transform(X_sample)
-    
-    with mlflow.start_run(run_name=run_name):
-        # Calcular los valores SHAP
-        explainer = shap.Explainer(XGB_pipe.named_steps['classifier'])
-        shap_values = explainer(X_sample_preprocessed)
-        
-        # Crear y guardar los gráficos de SHAP
-        shap_summary_plot = shap.summary_plot(shap_values, X_sample_preprocessed, show=False)
-        shap_bar_plot = shap.bar_plot(shap_values, show=False)
-        
-        mlflow.log_figure(shap_summary_plot, "shap_summary_plot.png")
-        mlflow.log_figure(shap_bar_plot, "shap_bar_plot.png")
-
-        mlflow.end_run()
 
 #%%
 
@@ -472,11 +429,16 @@ def predapi(data,model_path = 'xgb_pipeline.joblib'):
     return ypred_df
 #%%
 def rungradio():
-    demo = gr.Interface(fn = predapi, 
+    demo = gr.Interface(fn = predapi, # noten como estamos usando la función que generamos anteriormente
                         inputs=gr.File(type="filepath"), 
                         outputs=gr.DataFrame()) # valor de salida
 
     demo.launch(share = True)
 #%%
-
+def runtry():
+    getdata('glpat-kYKC4EfGq3Dx-5c7zzjA')
+    getdf('2024-07-03')
+    runMF()
+    retrain_model()
+    rungradio()
 # %%

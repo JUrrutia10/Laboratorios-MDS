@@ -16,6 +16,7 @@ RUN pip install mlflow
 RUN pip install xgboost
 RUN pip install optuna
 RUN pip install gradio
+RUN pip install shap
 # Inicializa la base de datos de Airflow
 RUN airflow db init
 
@@ -26,11 +27,17 @@ EXPOSE 8082
 RUN airflow users create --role Admin --username admin --email admin \
  --firstname admin --lastname admin --password admin
 
+
 # Copia las carpetas necesarias al contenedor
 COPY ./dags $AIRFLOW_HOME/dags
 COPY ./logs $AIRFLOW_HOME/logs
 COPY ./plugins $AIRFLOW_HOME/plugins
-COPY ./func $AIRFLOW_HOME/func
+COPY ./variables.json /opt/airflow/variables.json
 
+
+
+RUN airflow variables import /opt/airflow/variables.json
 # Comando para iniciar el servidor web y el scheduler
 CMD ["sh", "-c", "airflow webserver -p 8082 & airflow scheduler"]
+
+
