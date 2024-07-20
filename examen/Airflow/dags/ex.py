@@ -252,7 +252,7 @@ def optimize_hyperparameters_with_mlflow(X, y, preprocessor):
     # Ejecutar la optimización con Optuna y MLFlow
     study = optuna.create_study(direction='maximize')
     with mlflow.start_run(run_name="optimize_hyperparameters", nested=True):
-        study.optimize(objective2, n_trials=10)
+        study.optimize(objective2, n_trials=1)
 
     # Obtener el AUC PR y los mejores hiperparámetros encontrados
     best_auc = study.best_value

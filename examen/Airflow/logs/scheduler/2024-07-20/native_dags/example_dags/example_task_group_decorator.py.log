@@ -1,0 +1,11 @@
+[2024-07-20T03:44:38.446+0000] {processor.py:161} INFO - Started process (PID=74) to work on /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_task_group_decorator.py
+[2024-07-20T03:44:38.448+0000] {processor.py:830} INFO - Processing file /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_task_group_decorator.py for tasks to queue
+[2024-07-20T03:44:38.450+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:38.450+0000] {dagbag.py:545} INFO - Filling up the DagBag from /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_task_group_decorator.py
+[2024-07-20T03:44:38.466+0000] {processor.py:840} INFO - DAG(s) 'example_task_group_decorator' retrieved from /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_task_group_decorator.py
+[2024-07-20T03:44:38.705+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:38.704+0000] {override.py:1858} INFO - Created Permission View: can read on DAG:example_task_group_decorator
+[2024-07-20T03:44:38.733+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:38.732+0000] {override.py:1858} INFO - Created Permission View: can edit on DAG:example_task_group_decorator
+[2024-07-20T03:44:38.751+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:38.751+0000] {override.py:1858} INFO - Created Permission View: can delete on DAG:example_task_group_decorator
+[2024-07-20T03:44:38.752+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:38.752+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2024-07-20T03:44:38.760+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:38.760+0000] {dag.py:3111} INFO - Creating ORM DAG for example_task_group_decorator
+[2024-07-20T03:44:38.770+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:38.770+0000] {dag.py:3947} INFO - Setting next_dagrun for example_task_group_decorator to 2024-07-19 00:00:00+00:00, run_after=2024-07-20 00:00:00+00:00
+[2024-07-20T03:44:38.805+0000] {processor.py:183} INFO - Processing /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_task_group_decorator.py took 0.364 seconds

@@ -1,0 +1,12 @@
+[2024-07-20T03:44:39.906+0000] {processor.py:161} INFO - Started process (PID=75) to work on /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_python_operator.py
+[2024-07-20T03:44:39.908+0000] {processor.py:830} INFO - Processing file /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_python_operator.py for tasks to queue
+[2024-07-20T03:44:39.910+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:39.910+0000] {dagbag.py:545} INFO - Filling up the DagBag from /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_python_operator.py
+[2024-07-20T03:44:39.922+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:39.921+0000] {example_python_operator.py:93} WARNING - The virtalenv_python example task requires virtualenv, please install it.
+[2024-07-20T03:44:39.928+0000] {processor.py:840} INFO - DAG(s) 'example_python_operator' retrieved from /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_python_operator.py
+[2024-07-20T03:44:40.463+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:40.462+0000] {override.py:1858} INFO - Created Permission View: can read on DAG:example_python_operator
+[2024-07-20T03:44:40.535+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:40.535+0000] {override.py:1858} INFO - Created Permission View: can edit on DAG:example_python_operator
+[2024-07-20T03:44:40.588+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:40.588+0000] {override.py:1858} INFO - Created Permission View: can delete on DAG:example_python_operator
+[2024-07-20T03:44:40.589+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:40.589+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2024-07-20T03:44:40.600+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:40.600+0000] {dag.py:3111} INFO - Creating ORM DAG for example_python_operator
+[2024-07-20T03:44:40.602+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:40.601+0000] {dag.py:3947} INFO - Setting next_dagrun for example_python_operator to None, run_after=None
+[2024-07-20T03:44:40.680+0000] {processor.py:183} INFO - Processing /usr/local/lib/python3.11/site-packages/airflow/example_dags/example_python_operator.py took 0.780 seconds

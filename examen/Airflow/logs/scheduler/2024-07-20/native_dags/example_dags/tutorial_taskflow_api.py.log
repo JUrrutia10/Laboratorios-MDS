@@ -1,0 +1,11 @@
+[2024-07-20T03:44:36.085+0000] {processor.py:161} INFO - Started process (PID=72) to work on /usr/local/lib/python3.11/site-packages/airflow/example_dags/tutorial_taskflow_api.py
+[2024-07-20T03:44:36.087+0000] {processor.py:830} INFO - Processing file /usr/local/lib/python3.11/site-packages/airflow/example_dags/tutorial_taskflow_api.py for tasks to queue
+[2024-07-20T03:44:36.088+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:36.088+0000] {dagbag.py:545} INFO - Filling up the DagBag from /usr/local/lib/python3.11/site-packages/airflow/example_dags/tutorial_taskflow_api.py
+[2024-07-20T03:44:36.099+0000] {processor.py:840} INFO - DAG(s) 'tutorial_taskflow_api' retrieved from /usr/local/lib/python3.11/site-packages/airflow/example_dags/tutorial_taskflow_api.py
+[2024-07-20T03:44:36.331+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:36.330+0000] {override.py:1858} INFO - Created Permission View: can read on DAG:tutorial_taskflow_api
+[2024-07-20T03:44:36.368+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:36.368+0000] {override.py:1858} INFO - Created Permission View: can edit on DAG:tutorial_taskflow_api
+[2024-07-20T03:44:36.388+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:36.388+0000] {override.py:1858} INFO - Created Permission View: can delete on DAG:tutorial_taskflow_api
+[2024-07-20T03:44:36.389+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:36.389+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2024-07-20T03:44:36.398+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:36.398+0000] {dag.py:3111} INFO - Creating ORM DAG for tutorial_taskflow_api
+[2024-07-20T03:44:36.400+0000] {logging_mixin.py:188} INFO - [2024-07-20T03:44:36.399+0000] {dag.py:3947} INFO - Setting next_dagrun for tutorial_taskflow_api to None, run_after=None
+[2024-07-20T03:44:36.433+0000] {processor.py:183} INFO - Processing /usr/local/lib/python3.11/site-packages/airflow/example_dags/tutorial_taskflow_api.py took 0.353 seconds
