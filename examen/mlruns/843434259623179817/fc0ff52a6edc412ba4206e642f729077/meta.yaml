@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/843434259623179817/fc0ff52a6edc412ba4206e642f729077/artifacts
+end_time: 1721288113937
+entry_point_name: ''
+experiment_id: '843434259623179817'
+lifecycle_stage: active
+run_id: fc0ff52a6edc412ba4206e642f729077
+run_name: incremental_training_2024-07-18
+run_uuid: fc0ff52a6edc412ba4206e642f729077
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721287859087
+status: 3
+tags: []
+user_id: jeus8

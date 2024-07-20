@@ -1,0 +1,9 @@
+digest: d0f6ed6a
+name: dataset
+profile: '{"features_shape": [670904, 51], "features_size": 34216104, "features_nbytes":
+  136864416}'
+schema: '{"mlflow_tensorspec": {"features": "[{\"type\": \"tensor\", \"tensor-spec\":
+  {\"dtype\": \"float32\", \"shape\": [-1, 51]}}]", "targets": null}}'
+source: '{"tags": {"mlflow.user": "jeus8", "mlflow.source.name": "c:\\Users\\jeus8\\Laboratorios-MDS\\0labs.venv\\Lib\\site-packages\\ipykernel_launcher.py",
+  "mlflow.source.type": "LOCAL"}}'
+source_type: code

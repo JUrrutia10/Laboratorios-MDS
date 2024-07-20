@@ -1,0 +1,14 @@
+#run de gradio app
+docker run -p 7860:7860 gradio-app
+#run airflow
+docker run -p 8082:8082 -d --name my-airflow-container my-airflow-image
+run mlflow
+mlflow server --host 127.0.0.1 --port 8080
+##########################
+installs
+
+docker build -t gradio-app .
+
+docker build -t my-airflow-image .
+
+docker build -t my-mlflow-image .

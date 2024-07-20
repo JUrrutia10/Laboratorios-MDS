@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  airflow:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "8082:8082"  # Puerto para el servidor web de Airflow
+    volumes:
+      - ./dags:/root/airflow/dags
+      - ./logs:/root/airflow/logs
+      - ./plugins:/root/airflow/plugins
+      - ./variables.json:/opt/airflow/variables.json
+    environment:
+      - AIRFLOW__CORE__ENABLE_XCOM_PICKLING=True
+    depends_on:
+      - mlflow
+      - gradio
+
+  mlflow:
+    build:
+      context: .
+      dockerfile: Dockerfile.mlflow
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlruns
+
+  gradio:
+    image: python:3.11-slim
+    ports:
+      - "7860:7860"  # Puerto para la interfaz de Gradio
+    volumes:
+      - ./gradio_app:/app  # Asegúrate de tener tu aplicación Gradio aquí
+    command: sh -c "pip install gradio && python /app/app.py"
+    container_name: gradio_app
+networks:
+  ml_net:
+    driver: bridge

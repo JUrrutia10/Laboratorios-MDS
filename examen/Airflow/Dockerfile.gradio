@@ -1,0 +1,18 @@
+# Usa una imagen base de Python
+FROM python:3.11-slim
+
+# Establece el directorio de trabajo
+WORKDIR /examen
+
+# Copia el archivo requirements.txt en el contenedor
+RUN pip install --no-cache-dir numpy pandas IPython scikit-learn subprocess32 joblib mlflow xgboost optuna gradio
+
+# Copia el resto de la aplicación en el contenedor
+COPY . .
+
+# Exponer el puerto que utiliza Gradio (por defecto 7860)
+EXPOSE 7860
+ENV GRADIO_SERVER_NAME="0.0.0.0"
+
+# Comando para ejecutar la aplicación
+CMD ["python", "app.py"]
