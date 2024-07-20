@@ -435,10 +435,5 @@ def rungradio():
 
     demo.launch(share = True)
 #%%
-def runtry():
-    getdata('glpat-kYKC4EfGq3Dx-5c7zzjA')
-    getdf('2024-07-03')
-    runMF()
-    retrain_model()
-    rungradio()
+
 # %%
