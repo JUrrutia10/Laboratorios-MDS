@@ -344,7 +344,7 @@ def retrain_model(preprocessor=preprocessor2, model_path='xgb_pipeline.joblib'):
                 
                 # Log interpretability
                 X_combined_preprocessed = XGB_pipe.named_steps['preprocessor'].transform(X_combined)
-                log_interpretability(X_combined_preprocessed, XGB_pipe.named_steps['classifier'], run_name)
+                
             finally:
                 mlflow.end_run()
     else:
@@ -367,8 +367,7 @@ def retrain_model(preprocessor=preprocessor2, model_path='xgb_pipeline.joblib'):
                     joblib.dump(XGB_pipe, model_path)
                     mlflow.sklearn.log_model(XGB_pipe, "model_updated")
                     
-                    # Log interpretability
-                    log_interpretability(X_combined_preprocessed, classifier, run_name)
+                    
                 finally:
                     mlflow.end_run()
         else:
@@ -378,8 +377,7 @@ def retrain_model(preprocessor=preprocessor2, model_path='xgb_pipeline.joblib'):
                     XGB_pipe = joblib.load(model_path)
                     X_combined_preprocessed = XGB_pipe.named_steps['preprocessor'].transform(X_combined)
                     
-                    # Log interpretability
-                    log_interpretability(X_combined_preprocessed, XGB_pipe.named_steps['classifier'], run_name)
+                    
                 finally:
                     mlflow.end_run()
                 
